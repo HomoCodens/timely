@@ -3,3 +3,9 @@ export interface Project {
   uiColor: string;
   id: string;
 }
+
+export interface Timeblock {
+  projectId: string;
+  start: Date;
+  end: Date;
+}

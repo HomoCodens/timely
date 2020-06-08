@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 import projects from './projects'
 import { ProjectsState } from './projects/state'
+import timeblocks from './timeline'
+import { TimelineState } from './timeline/state'
 
 /*
  * If not building with SSR mode, you can
@@ -10,7 +12,8 @@ import { ProjectsState } from './projects/state'
  */
 
 export interface Store {
-  example: ProjectsState;
+  projects: ProjectsState;
+  timeblocks: TimelineState;
 }
 
 export default store(function ({ Vue }) {
@@ -18,7 +21,8 @@ export default store(function ({ Vue }) {
 
   const Store = new Vuex.Store<Store>({
     modules: {
-      projects
+      projects,
+      timeblocks
     },
 
     // enable strict mode (adds overhead!)

@@ -2,7 +2,7 @@ import { Project } from 'components/models'
 
 export interface ProjectsState {
   projects: Array<Project>;
-  activeProject: number;
+  activeProject: string;
 }
 
 const state: ProjectsState = {
@@ -18,7 +18,7 @@ const state: ProjectsState = {
       uiColor: '#00ff00'
     }
   ],
-  activeProject: 0
+  activeProject: '1'
 }
 
 export default state
