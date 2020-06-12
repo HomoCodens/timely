@@ -6,12 +6,8 @@ export interface TimelineState {
 }
 
 const state: TimelineState = {
-  timeblocks: [{
-    projectId: '1',
-    start: new Date(),
-    end: new Date()
-  }],
-  paused: false
+  timeblocks: [],
+  paused: true
 }
 
 export default state
