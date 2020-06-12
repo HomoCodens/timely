@@ -3,10 +3,10 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>
-          Quasar App
+          Timely
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>Untangle the knot!</div>
       </q-toolbar>
 
       <q-tabs align="left">
