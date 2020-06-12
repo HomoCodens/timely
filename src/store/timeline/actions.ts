@@ -28,6 +28,10 @@ const actions: ActionTree<TimelineState, Store> = {
     } else {
       dispatch('pause')
     }
+  },
+
+  resetTime ({ commit }) {
+    commit('RESET_TIME')
   }
 }
 

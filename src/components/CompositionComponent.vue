@@ -22,6 +22,7 @@
         row-key="name"
       />
       <q-btn color="secondary" label="Secondary" @click="togglePaused"/>
+      <q-btn color="secondary" label="Reset time" @click="resetTime"/>
   </div>
 </template>
 
@@ -75,6 +76,9 @@ export default defineComponent({
   methods: {
     togglePaused: function () {
       this.$store.dispatch('togglePaused')
+    },
+    resetTime: function () {
+      this.$store.dispatch('resetTime')
     }
   },
   setup (props, context) {
