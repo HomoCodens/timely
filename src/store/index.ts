@@ -1,5 +1,6 @@
 import { store } from 'quasar/wrappers'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persist'
 
 import projects from './projects'
 import { ProjectsState } from './projects/state'
@@ -19,11 +20,17 @@ export interface Store {
 export default store(function ({ Vue }) {
   Vue.use(Vuex)
 
+  const localPersist = new VuexPersistence({
+    storage: window.localStorage
+  })
+
   const Store = new Vuex.Store<Store>({
     modules: {
       projects,
       timeblocks
     },
+
+    plugins: [ localPersist.plugin ],
 
     // enable strict mode (adds overhead!)
     // for dev mode only
