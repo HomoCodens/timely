@@ -9,7 +9,7 @@ const mutation: MutationTree<ProjectsState> = {
 
   NEW_PROJECT (state: ProjectsState) {
     state.projects.push({
-      name: `Project ${state.projects.length}`,
+      name: `Project ${state.projects.length + 1}`,
       uiColor: '#000000',
       id: v4()
     })
