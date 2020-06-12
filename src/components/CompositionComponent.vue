@@ -26,12 +26,17 @@
         :label="this.$store.state.timeblocks.paused ? 'Run' : 'Pause'"
         @click="togglePaused"/>
       <q-btn color="red" label="Reset time" @click="resetTime"/>
+      <div class="small">
+      <timeline-chart :chart-data="datacollection"></timeline-chart>
+  </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api'
+import TimelineChart from './TimelineChart.vue'
+import { defineComponent, computed, ref } from '@vue/composition-api'
 import moment from 'moment'
+import { Timeblock } from './models'
 
 function useProjectOptions (root: any) {
   const projectOptions = computed(() => root.$store.state.projects.projects)
@@ -65,6 +70,47 @@ function useAggregate (root: any) {
   return { projectAggregate, aggregateColumns }
 }
 
+function useChart (root: any) {
+  const datacollection = computed(() => {
+    const blu = root.$store.state.timeblocks.timeblocks.reduce((acc, x: Timeblock) => {
+      if (!acc[x.projectId]) {
+        acc[x.projectId] = {
+          project: root.$store.getters.getProjectById(x.projectId),
+          blocks: []
+        }
+      }
+
+      acc[x.projectId].blocks.push(x)
+
+      return acc
+    }, {})
+
+    const datasets = Object.entries(blu).map(([id, x]) => {
+      const data = []
+      for (const block of x.blocks) {
+        data.push({ x: block.start, y: 0 })
+        data.push({ x: block.end, y: 0 })
+        data.push({})
+      }
+      data.pop()
+
+      return {
+        label: x.project.name,
+        backgroundColor: x.project.uiColor,
+        borderColor: x.project.uiColor,
+        fill: false,
+        borderWidth: 100,
+        pointRadius: 0,
+        data
+      }
+    })
+
+    return { datasets }
+  })
+
+  return { datacollection }
+}
+
 export default defineComponent({
   name: 'CompositionComponent',
   props: {
@@ -76,6 +122,9 @@ export default defineComponent({
       type: Boolean
     }
   },
+  components: {
+    TimelineChart
+  },
   methods: {
     togglePaused: function () {
       this.$store.dispatch('togglePaused')
@@ -85,7 +134,11 @@ export default defineComponent({
     }
   },
   setup (props, context) {
-    return { ...useProjectOptions(context.root), ...useAggregate(context.root) }
+    return {
+      ...useProjectOptions(context.root),
+      ...useAggregate(context.root),
+      ...useChart(context.root)
+    }
   }
 })
 </script>
