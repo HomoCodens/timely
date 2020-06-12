@@ -10,7 +10,8 @@ const mutation: MutationTree<ProjectsState> = {
   NEW_PROJECT (state: ProjectsState) {
     state.projects.push({
       name: `Project ${state.projects.length + 1}`,
-      uiColor: '#000000',
+      // https://jsfiddle.net/fouadb/k642erLm/1
+      uiColor: '#' + (Math.random() * 0xFFFFFF << 0).toString(16),
       id: v4()
     })
   },
