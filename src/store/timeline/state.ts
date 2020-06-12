@@ -2,6 +2,7 @@ import { Timeblock } from 'components/models'
 
 export interface TimelineState {
   timeblocks: Array<Timeblock>;
+  paused: boolean;
 }
 
 const state: TimelineState = {
@@ -9,7 +10,8 @@ const state: TimelineState = {
     projectId: '1',
     start: new Date(),
     end: new Date()
-  }]
+  }],
+  paused: false
 }
 
 export default state

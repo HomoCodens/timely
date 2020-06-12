@@ -9,6 +9,25 @@ const actions: ActionTree<TimelineState, Store> = {
 
   tick ({ commit }) {
     commit('TICK')
+  },
+
+  pause ({ dispatch, commit }) {
+    dispatch('tick')
+    commit('SET_PAUSED', true)
+  },
+
+  resume ({ dispatch, commit, rootState }) {
+    dispatch('tick')
+    commit('SET_PAUSED', false)
+    dispatch('newBlock', { id: rootState.projects.activeProject })
+  },
+
+  togglePaused ({ state, dispatch }) {
+    if (state.paused) {
+      dispatch('resume')
+    } else {
+      dispatch('pause')
+    }
   }
 }
 

@@ -4,9 +4,7 @@ import { TimelineState } from './state'
 const mutation: MutationTree<TimelineState> = {
   START_NEW_BLOCK (state, id: string) {
     const now = new Date()
-    if (state.timeblocks.length > 0) {
-      state.timeblocks[state.timeblocks.length - 1].end = now
-    }
+
     state.timeblocks.push({
       projectId: id,
       start: now,
@@ -15,9 +13,13 @@ const mutation: MutationTree<TimelineState> = {
   },
 
   TICK (state) {
-    if (state.timeblocks.length > 0) {
+    if (state.timeblocks.length > 0 && !state.paused) {
       state.timeblocks[state.timeblocks.length - 1].end = new Date()
     }
+  },
+
+  SET_PAUSED (state, newPaused: boolean) {
+    state.paused = newPaused
   }
 }
 

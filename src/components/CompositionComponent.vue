@@ -1,3 +1,5 @@
+<!-- TODO: Break this up into several components -->
+
 <template>
   <div>
     <p>{{ title }}</p>
@@ -19,11 +21,12 @@
         :columns="aggregateColumns"
         row-key="name"
       />
+      <q-btn color="secondary" label="Secondary" @click="togglePaused"/>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted } from '@vue/composition-api'
+import { defineComponent, computed } from '@vue/composition-api'
 import moment from 'moment'
 
 function useProjectOptions (root: any) {
@@ -67,6 +70,11 @@ export default defineComponent({
     },
     active: {
       type: Boolean
+    }
+  },
+  methods: {
+    togglePaused: function () {
+      this.$store.dispatch('togglePaused')
     }
   },
   setup (props, context) {

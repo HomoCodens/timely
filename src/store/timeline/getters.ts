@@ -4,7 +4,7 @@ import { TimelineState } from './state'
 import { Timeblock } from 'src/components/models'
 
 const getters: GetterTree<TimelineState, Store> = {
-  projectAggregate (state) {
+  projectAggregate (state, getters) {
     const agg = state.timeblocks.reduce((acc: Record<string, any>, x: Timeblock) => {
       if (acc[x.projectId] === undefined) {
         acc[x.projectId] = 0
@@ -15,7 +15,8 @@ const getters: GetterTree<TimelineState, Store> = {
 
     return Object.entries(agg).map(([id, time]) => {
       return {
-        name: id,
+        name: getters.getProjectById(id).name,
+        id: id,
         time
       }
     })

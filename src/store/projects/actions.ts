@@ -8,6 +8,14 @@ const actions: ActionTree<ProjectsState, Store> = {
       commit('SET_ACTIVE_PROJECT', id)
       dispatch('newBlock', { id })
     }
+  },
+
+  newProject ({ commit }) {
+    commit('NEW_PROJECT')
+  },
+
+  renameProject ({ commit }, payload) {
+    commit('SET_PROJECT_NAME', payload)
   }
 }
 

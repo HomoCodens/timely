@@ -8,6 +8,11 @@
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
+
+      <q-tabs align="left">
+        <q-route-tab to="/" label="Timely" />
+        <q-route-tab to="/manager" label="Project manager" />
+      </q-tabs>
     </q-header>
 
     <q-page-container>
