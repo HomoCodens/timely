@@ -25,6 +25,13 @@ const mutation: MutationTree<TimelineState> = {
   RESET_TIME (state) {
     state.timeblocks = []
     state.paused = true
+  },
+
+  REMOVE_PROJECT (state, id) {
+    if (state.timeblocks[state.timeblocks.length - 1].projectId === id) {
+      state.paused = true
+    }
+    state.timeblocks = state.timeblocks.filter((b) => b.projectId !== id)
   }
 }
 

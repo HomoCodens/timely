@@ -18,6 +18,13 @@ const mutation: MutationTree<ProjectsState> = {
   SET_PROJECT_NAME (state: ProjectsState, { id, newName }) {
     const i = state.projects.map((x, i) => { return { index: i, project: x } }).filter(({ project }) => project.id === id)[0].index
     state.projects[i].name = newName
+  },
+
+  REMOVE_PROJECT (state: ProjectsState, id: string) {
+    state.projects = state.projects.filter((p) => p.id !== id)
+    if (state.activeProject === id) {
+      state.activeProject = state.projects[0].id
+    }
   }
 }
 

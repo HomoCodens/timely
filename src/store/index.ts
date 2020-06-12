@@ -30,7 +30,7 @@ export default store(function ({ Vue }) {
       timeblocks
     },
 
-    plugins: [ localPersist.plugin ],
+    plugins: [localPersist.plugin],
 
     // enable strict mode (adds overhead!)
     // for dev mode only

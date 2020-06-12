@@ -16,6 +16,10 @@ const actions: ActionTree<ProjectsState, Store> = {
 
   renameProject ({ commit }, payload) {
     commit('SET_PROJECT_NAME', payload)
+  },
+
+  removeProject ({ commit }, id) {
+    commit('REMOVE_PROJECT', id)
   }
 }
 

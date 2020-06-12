@@ -19,10 +19,13 @@
         title="Overview"
         :data="projectAggregate"
         :columns="aggregateColumns"
-        row-key="name"
+        row-key="id"
       />
-      <q-btn color="secondary" label="Secondary" @click="togglePaused"/>
-      <q-btn color="secondary" label="Reset time" @click="resetTime"/>
+      <q-btn
+        :color="this.$store.state.timeblocks.paused ? 'green' : 'amber'"
+        :label="this.$store.state.timeblocks.paused ? 'Run' : 'Pause'"
+        @click="togglePaused"/>
+      <q-btn color="red" label="Reset time" @click="resetTime"/>
   </div>
 </template>
 
