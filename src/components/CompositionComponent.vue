@@ -27,7 +27,7 @@
         @click="togglePaused"/>
       <q-btn color="red" label="Reset time" @click="resetTime"/>
       <div class="small">
-      <timeline-chart :chart-data="datacollection"></timeline-chart>
+      <timeline-chart :chart-data="datacollection" :styles="chartStyles"></timeline-chart>
   </div>
   </div>
 </template>
@@ -90,7 +90,7 @@ function useChart (root: any) {
       for (const block of x.blocks) {
         data.push({ x: block.start, y: 0 })
         data.push({ x: block.end, y: 0 })
-        data.push({})
+        data.push({ x: NaN, y: 0 })
       }
       data.pop()
 
@@ -98,17 +98,23 @@ function useChart (root: any) {
         label: x.project.name,
         backgroundColor: x.project.uiColor,
         borderColor: x.project.uiColor,
-        fill: false,
-        borderWidth: 100,
+        borderWidth: 5,
         pointRadius: 0,
+        fill: 'start',
         data
       }
     })
 
+
     return { datasets }
   })
 
-  return { datacollection }
+  const chartStyles = ref({
+    height: '150px',
+    position: 'relative'
+  })
+
+  return { datacollection, chartStyles }
 }
 
 export default defineComponent({

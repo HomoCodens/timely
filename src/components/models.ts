@@ -6,6 +6,6 @@ export interface Project {
 
 export interface Timeblock {
   projectId: string;
-  start: number;
-  end: number;
+  start: Date;
+  end: Date;
 }
