@@ -6,7 +6,7 @@
           Timely
         </q-toolbar-title>
 
-        <div>Untangle the knot!</div>
+        <div>Defragment your workload!</div>
       </q-toolbar>
 
       <q-tabs align="left">
