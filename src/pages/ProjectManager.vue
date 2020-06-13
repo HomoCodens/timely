@@ -4,9 +4,13 @@
   <div>
     <q-table
       title="Projects"
+      style="height: 400px"
       :data="this.$store.state.projects.projects"
       :columns="columns"
       row-key="id"
+      virtual-scroll
+      :pagination.sync="pagination"
+      :rows-per-page-options="[0]"
     >
       <template v-slot:body="props">
         <q-tr :props="props">
@@ -19,7 +23,7 @@
             <q-btn icon-right="casino" @click="() => randomizeColor(props.row.id)" color="grey"/>
           </q-td>
           <q-td key="id">
-            {{ props.row.name }}
+            <b>{{ props.row.name }}</b>
             <q-popup-edit v-model="editingDummy" @before-show="editingDummy = props.row.name" @save="(val) => setName(props.row.id, val)">
               <q-input v-model="editingDummy" dense autofocus />
             </q-popup-edit>
@@ -90,7 +94,11 @@ function useTable ({ root }) {
     root.$store.dispatch('randomizeColor', id)
   }
 
-  return { columns, newProject, confirm, projectToRemove, confirmRemoval, removeProject, editingDummy, setName, adjust, changeColor, randomizeColor }
+  const pagination = ref({
+    rowsPerPage: 0
+  })
+
+  return { columns, newProject, confirm, projectToRemove, confirmRemoval, removeProject, editingDummy, setName, adjust, changeColor, randomizeColor, pagination }
 }
 
 export default defineComponent({

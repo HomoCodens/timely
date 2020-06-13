@@ -20,6 +20,10 @@
         :data="projectAggregate"
         :columns="aggregateColumns"
         row-key="id"
+        style="height: 400px"
+        virtual-scroll
+        :rows-per-page-options="[0]"
+        :pagination.sync="pagination"
       />
       <q-btn
         :color="this.$store.state.timeblocks.paused ? 'green' : 'amber'"
@@ -67,7 +71,11 @@ function useAggregate (root: any) {
     }
   ]
 
-  return { projectAggregate, aggregateColumns }
+  const pagination = ref({
+    rowsPerPage: 0
+  })
+
+  return { projectAggregate, aggregateColumns, pagination }
 }
 
 function useChart (root: any) {
