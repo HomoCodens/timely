@@ -10,6 +10,14 @@
     >
       <template v-slot:body="props">
         <q-tr :props="props">
+          <q-td>
+            <q-btn :style="{background: props.row.uiColor, color: 'white'}" icon-right="colorize">
+                <q-popup-proxy transition-show="scale" transition-hide="scale">
+                <q-color :value="props.row.uiColor" @change="(clr) => changeColor(props.row.id, clr)"/>
+              </q-popup-proxy>
+            </q-btn>
+            <q-btn icon-right="casino" @click="() => randomizeColor(props.row.id)" color="grey"/>
+          </q-td>
           <q-td key="id">
             {{ props.row.name }}
             <q-popup-edit v-model="editingDummy" @before-show="editingDummy = props.row.name" @save="(val) => setName(props.row.id, val)">
@@ -70,7 +78,19 @@ function useTable ({ root }) {
     root.$store.dispatch('renameProject', { id, newName })
   }
 
-  return { columns, newProject, confirm, projectToRemove, confirmRemoval, removeProject, editingDummy, setName }
+  function adjust (color, amount) {
+    return '#' + color.replace(/^#/, '').replace(/../g, color => ('0'+Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2))
+  }
+
+  function changeColor (id: string, color: string) {
+    root.$store.dispatch('changeColor', { id, color })
+  }
+
+  function randomizeColor (id: string) {
+    root.$store.dispatch('randomizeColor', id)
+  }
+
+  return { columns, newProject, confirm, projectToRemove, confirmRemoval, removeProject, editingDummy, setName, adjust, changeColor, randomizeColor }
 }
 
 export default defineComponent({
